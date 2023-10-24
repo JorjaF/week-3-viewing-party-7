@@ -30,6 +30,7 @@ class UsersController <ApplicationController
     @user = User.new(user_params)
     
     if @user.save
+      session[:user_id] = @user.id
       flash[:success] = "Welcome, #{@user.name}!"
       redirect_to @user
     else
@@ -38,6 +39,11 @@ class UsersController <ApplicationController
     end
   end
 
+  def destroy
+    session[:user_id] = nil
+    flash[:success] = 'You have been logged out'
+    redirect_to root_path
+  end
   private 
 
   def user_params 
