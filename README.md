@@ -9,3 +9,4 @@ This repo can be used by any students during BE week 3.
 3. rails db:{drop,create,migrate,seed}
 
 
+# challenges_viewing_party
