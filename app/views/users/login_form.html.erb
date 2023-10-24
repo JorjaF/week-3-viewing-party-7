@@ -1,17 +1,18 @@
-<h2>Login</h2>
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Log In</title>
+</head>
+<body>
+  <h2>Log In</h2>
+  <%= form_with(model: @user, url: login_path) do |form| %>
+    <%= form.label :email %>
+    <%= form.text_field :email %>
 
-<%= form_tag login_path do %>
-  <div class="field">
-    <%= label_tag :email %>
-    <%= text_field_tag :email %>
-  </div>
+    <%= form.label :password %>
+    <%= form.password_field :password %>
 
-  <div class="field">
-    <%= label_tag :password %>
-    <%= password_field_tag :password %>
-  </div>
-
-  <div class="actions">
-    <%= submit_tag "Log In" %>
-  </div>
-<% end %>
+    <%= form.submit "Log In" %>
+  <% end %>
+</body>
+</html>

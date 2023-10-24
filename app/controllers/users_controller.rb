@@ -4,17 +4,13 @@ class UsersController <ApplicationController
   end 
 
   def show 
-    user = User.find_by(id: params[:id])
-    if user == @current_user
-      redirect_to dashboard_path
-    else
-      redirect_to root_path
-    end
+    @user = User.find(params[:id])
   end 
 
   def login_user
-    user = User.find_by(email: params[:email].downcase)
-    if user && user.authenticate(params[:password])
+    
+    user = User.find_by(email: params[:user][:email].downcase)
+    if user && user.authenticate(params[:user][:password])
       session[:user_id] = user.id
       flash[:success] = "Welcome, #{user.name}!"
       redirect_to user_path(user)
