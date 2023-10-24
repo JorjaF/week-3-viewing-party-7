@@ -8,13 +8,20 @@ class UsersController <ApplicationController
   end 
 
   def login_form
-
+    @user = User.new
+    render "login_form"
   end
 
-  def login
-    user = User.find_by(email: params[:email])
-    flash[:success] = "Welcome, #{@user.name}!"
-    redirect_to user_path(user)
+  def log_in_user
+    user = User.find_by(email: params[:email].downcase)
+    if user && user.authenticate(params[:password])
+      session[:user_id] = user.id
+      flash[:success] = "Welcome, #{user.name}!"
+      redirect_to user_path(user)
+    else
+      flash[:error] = 'Invalid email or password'
+      redirect_to login_path
+    end
   end
 
   def create
