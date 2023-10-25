@@ -1,4 +1,5 @@
 class UsersController <ApplicationController 
+  before_action :require_session, except: [:new, :create, :login_user, :login_form]
   def new 
     @user = User.new
   end 

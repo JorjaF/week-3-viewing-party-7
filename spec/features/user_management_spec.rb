@@ -1,11 +1,23 @@
 require 'rails_helper'
 
 RSpec.describe 'User Management' do
-  it 'requires a user to be logged in to access the dashboard' do
-    visit root_path
+  context 'As a visitor' do
+    it 'requires a user to be logged in to access the dashboard' do
+      visit root_path
 
-    expect(current_path).to eq(root_path)
-    expect(page).to have_content('You must be logged in or registered to access this feature.')
+      expect(current_path).to eq(root_path)
+      expect(page).to have_content('You must be logged in or registered to access this page.')
+    end
+
+    it 'shows a message for unauthenticated visitors' do
+      user1 = User.create(name: 'User One', email: 'user1@example.com', password: 'password', password_confirmation: 'password')
+      visit root_path
+
+      visit user_path(user1)
+      
+      expect(current_path).to eq(root_path)
+      expect(page).to have_content("You must be logged in or registered to access this page.")
+    end
   end
 
   context 'As a registered user' do

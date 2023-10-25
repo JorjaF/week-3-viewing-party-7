@@ -3,10 +3,13 @@ require 'rails_helper'
 RSpec.describe 'Movies Index Page' do
   before do 
     @user1 = User.create(name: "User One", email: "user1@test.com", password: "password", password_confirmation: "password")
-    i = 1
-    20.times do 
+    visit login_path
+    fill_in "Email", with: @user1.email
+    fill_in "Password", with: @user1.password
+    click_button "Log In"
+    
+    20.times do |i|
       Movie.create(title: "Movie #{i} Title", rating: rand(1..10), description: "This is a description about Movie #{i}")
-      i+=1
     end 
   end 
 
