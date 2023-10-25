@@ -1,4 +1,5 @@
 class ViewingPartiesController < ApplicationController 
+  before_action :require_session, only: [:new, :create]
   def new
     @user = User.find(params[:user_id])
     @movie = Movie.find(params[:movie_id])
